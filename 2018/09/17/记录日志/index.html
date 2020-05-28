@@ -1,0 +1,1501 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="JAVA记录操作日志步骤, Selegant">
+    <meta name="description" content="热爱代码，热爱更加自由的生活">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>JAVA记录操作日志步骤 | Selegant</title>
+    <link rel="icon" type="image/png" href="https://s1.ax1x.com/2020/05/28/tZoBUe.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="https://s1.ax1x.com/2020/05/28/tZoBUe.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Selegant</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="https://s1.ax1x.com/2020/05/28/tZoBUe.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Selegant</div>
+        <div class="logo-desc">
+            
+            热爱代码，热爱更加自由的生活
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/banner/1.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">JAVA记录操作日志步骤</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Java/">
+                                <span class="chip bg-color">Java</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/后端/" class="post-category">
+                                后端
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2018-09-17
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><blockquote>
+<p>系统日志不论是在日常的管理还是维护中都会起到很大的作用,但是在日志的记录中通常会存在很多的问题</p>
+</blockquote>
+<ol>
+<li>日志记录的不规范性</li>
+<li>日志记录的重复性</li>
+<li>日志记录的难分类</li>
+</ol>
+<blockquote>
+<p>目前日志主要记录的有三方面</p>
+</blockquote>
+<ol>
+<li>请求的入参,出参</li>
+<li>关于业务上的操作</li>
+<li>异常日常日志的打印</li>
+</ol>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><h3 id="1-记录请求的出参入参"><a href="#1-记录请求的出参入参" class="headerlink" title="1.记录请求的出参入参"></a>1.记录请求的出参入参</h3><blockquote>
+<p>记录出参入参这是日志记录最好操作的一部分,而这里会存在一定的重复性,因为每个请求都需要记录,这是重复操作,完全可以使用Spring AOP进行入参和出参的记录</p>
+</blockquote>
+<pre><code>import org.apache.log4j.Logger;
+import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
+
+/**
+ * Web层日志切面
+ */
+@Aspect    //这里使用@Aspect注解方式设置AOP
+@Order(5)  //值越小,越先加载
+@Component
+public class WebLogAspect {
+
+    private Logger logger = Logger.getLogger(getClass());
+
+    ThreadLocal&lt;Long&gt; startTime = new ThreadLocal&lt;&gt;();
+
+    //这里@Pointcut设置切点可以设置为Controller层的地址
+    @Pointcut(&quot;execution(public * com.training..*.*Controller(..))&quot;)
+    public void webLog(){}
+
+    //@Before指在切点方法之前执行,也就是在Controller层方法执行之前执行,这里可以通过JoinPoint获取一些有关方法的信息,在这里也可以修改参数的值
+
+    //@Before()括号里设置的是切点方法的名称
+    @Before(&quot;webLog()&quot;)
+    public void doBefore(JoinPoint joinPoint) throws Throwable {
+        startTime.set(System.currentTimeMillis());
+
+        // 接收到请求，记录请求内容
+        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        HttpServletRequest request = attributes.getRequest();
+
+        // 记录下请求内容
+        logger.info(&quot;URL : &quot; + request.getRequestURL().toString());
+        logger.info(&quot;HTTP_METHOD : &quot; + request.getMethod());
+        logger.info(&quot;IP : &quot; + request.getRemoteAddr());
+        logger.info(&quot;CLASS_METHOD : &quot; + joinPoint.getSignature().getDeclaringTypeName() + &quot;.&quot; + joinPoint.getSignature().getName());
+        logger.info(&quot;ARGS : &quot; + Arrays.toString(joinPoint.getArgs()));
+
+    }
+
+    @AfterReturning(returning = &quot;ret&quot;, pointcut = &quot;webLog()&quot;)
+    public void doAfterReturning(Object ret) throws Throwable {
+        // 处理完请求，返回内容
+        logger.info(&quot;RESPONSE : &quot; + ret);
+        logger.info(&quot;SPEND TIME : &quot; + (System.currentTimeMillis() - startTime.get()));
+    }
+
+}
+</code></pre><h3 id="2-记录操作日志"><a href="#2-记录操作日志" class="headerlink" title="2.记录操作日志"></a>2.记录操作日志</h3><blockquote>
+<p>在系统中可能会有很多的增删改查或是会涉及到一些业务操作,这时候我们需要记录一下操作的入口,在此还可以记录下操作的类型,或是业务的名称.不过在就操作日志前需要构建日志的基础部件</p>
+</blockquote>
+<h3 id="日志对象"><a href="#日志对象" class="headerlink" title="日志对象"></a>日志对象</h3><pre><code>import java.util.Date;
+
+/**
+ * 操作日志
+ */
+public class OperationLog extends Base {
+
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * 日志类型
+     */
+    private String  logtype;
+    /**
+     * 日志名称
+     */
+    private String  logname;
+    /**
+     * 用户id
+     */
+    private Integer userid;
+    /**
+     * 类名称
+     */
+    private String  classname;
+    /**
+     * 方法名称
+     */
+    private String  method;
+    /**
+     * 创建时间
+     */
+    private Date    createtime;
+    /**
+     * 是否成功
+     */
+    private String  succeed;
+    /**
+     * 备注
+     */
+    private String  message;
+
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getLogtype() {
+        return logtype;
+    }
+
+    public void setLogtype(String logtype) {
+        this.logtype = logtype;
+    }
+
+    public String getLogname() {
+        return logname;
+    }
+
+    public void setLogname(String logname) {
+        this.logname = logname;
+    }
+
+    public Integer getUserid() {
+        return userid;
+    }
+
+    public void setUserid(Integer userid) {
+        this.userid = userid;
+    }
+
+    public String getClassname() {
+        return classname;
+    }
+
+    public void setClassname(String classname) {
+        this.classname = classname;
+    }
+
+    public String getMethod() {
+        return method;
+    }
+
+    public void setMethod(String method) {
+        this.method = method;
+    }
+
+    public Date getCreatetime() {
+        return createtime;
+    }
+
+    public void setCreatetime(Date createtime) {
+        this.createtime = createtime;
+    }
+
+    public String getSucceed() {
+        return succeed;
+    }
+
+    public void setSucceed(String succeed) {
+        this.succeed = succeed;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+}
+</code></pre><h3 id="日志对象创建工厂"><a href="#日志对象创建工厂" class="headerlink" title="日志对象创建工厂"></a>日志对象创建工厂</h3><pre><code>import com.stylefeng.guns.common.constant.state.LogSucceed;
+import com.stylefeng.guns.common.constant.state.LogType;
+import com.stylefeng.guns.common.persistence.model.LoginLog;
+import com.stylefeng.guns.common.persistence.model.OperationLog;
+
+import java.util.Date;
+
+/**
+ * 日志对象创建工厂
+ */
+public class LogFactory {
+
+    /**
+     * 创建操作日志
+     */
+    public static OperationLog createOperationLog(LogType logType, Integer userId, String bussinessName, String clazzName, String methodName, String msg, LogSucceed succeed) {
+        OperationLog operationLog = new OperationLog();
+        operationLog.setLogtype(logType.getMessage());
+        operationLog.setLogname(bussinessName);
+        operationLog.setUserid(userId);
+        operationLog.setClassname(clazzName);
+        operationLog.setMethod(methodName);
+        operationLog.setCreatetime(new Date());
+        operationLog.setSucceed(succeed.getMessage());
+        operationLog.setMessage(msg);
+        return operationLog;
+    }
+
+    /**
+     * 创建登录日志
+     */
+    public static LoginLog createLoginLog(LogType logType, Integer userId, String msg,String ip) {
+        LoginLog loginLog = new LoginLog();
+        loginLog.setLogname(logType.getMessage());
+        loginLog.setUserid(userId);
+        loginLog.setCreatetime(new Date());
+        loginLog.setSucceed(LogSucceed.SUCCESS.getMessage());
+        loginLog.setIp(ip);
+        loginLog.setMessage(msg);
+        return loginLog;
+    }
+}
+</code></pre><h3 id="日志任务创建工厂"><a href="#日志任务创建工厂" class="headerlink" title="日志任务创建工厂"></a>日志任务创建工厂</h3><blockquote>
+<p>日志任务创建工厂的作用是将日志记录存储到数据库中</p>
+</blockquote>
+<pre><code>import com.stylefeng.guns.common.constant.state.LogSucceed;
+import com.stylefeng.guns.common.constant.state.LogType;
+import com.stylefeng.guns.common.persistence.dao.LoginLogMapper;
+import com.stylefeng.guns.common.persistence.dao.OperationLogMapper;
+import com.stylefeng.guns.common.persistence.model.LoginLog;
+import com.stylefeng.guns.common.persistence.model.OperationLog;
+import com.stylefeng.guns.core.log.LogManager;
+import com.stylefeng.guns.core.util.SpringContextHolder;
+import com.stylefeng.guns.core.util.ToolUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.TimerTask;
+
+/**
+ * 日志操作任务创建工厂
+ */
+public class LogTaskFactory {
+
+    private static Logger logger  = LoggerFactory.getLogger(LogManager.class);
+    //LoginLogMapper记录登录登出日志
+    private static LoginLogMapper loginLogMapper = SpringContextHolder.getBean(LoginLogMapper.class);
+    //OperationLogMapper记录操作日志        
+    private static OperationLogMapper operationLogMapper = SpringContextHolder.getBean(OperationLogMapper.class);
+
+    public static TimerTask loginLog(final Integer userId, final String ip) {
+        return new TimerTask() {
+            @Override
+            public void run() {
+                try {
+                    LoginLog loginLog = LogFactory.createLoginLog(LogType.LOGIN, userId, null, ip);
+                    loginLogMapper.insert(loginLog);
+                } catch (Exception e) {
+                    logger.error(&quot;创建登录日志异常!&quot;, e);
+                }
+            }
+        };
+    }
+
+    public static TimerTask loginLog(final String username, final String msg, final String ip) {
+        return new TimerTask() {
+            @Override
+            public void run() {
+                LoginLog loginLog = LogFactory.createLoginLog(
+                        LogType.LOGIN_FAIL, null, &quot;账号:&quot; + username + &quot;,&quot; + msg, ip);
+                try {
+                    loginLogMapper.insert(loginLog);
+                } catch (Exception e) {
+                    logger.error(&quot;创建登录失败异常!&quot;, e);
+                }
+            }
+        };
+    }
+
+    public static TimerTask exitLog(final Integer userId, final String ip) {
+        return new TimerTask() {
+            @Override
+            public void run() {
+                LoginLog loginLog = LogFactory.createLoginLog(LogType.EXIT, userId, null,ip);
+                try {
+                    loginLogMapper.insert(loginLog);
+                } catch (Exception e) {
+                    logger.error(&quot;创建退出日志异常!&quot;, e);
+                }
+            }
+        };
+    }
+
+    public static TimerTask bussinessLog(final Integer userId, final String bussinessName, final String clazzName, final String methodName, final String msg) {
+        return new TimerTask() {
+            @Override
+            public void run() {
+                OperationLog operationLog = LogFactory.createOperationLog(
+                        LogType.BUSSINESS, userId, bussinessName, clazzName, methodName, msg, LogSucceed.SUCCESS);
+                try {
+                    operationLogMapper.insert(operationLog);
+                } catch (Exception e) {
+                    logger.error(&quot;创建业务日志异常!&quot;, e);
+                }
+            }
+        };
+    }
+
+    public static TimerTask exceptionLog(final Integer userId, final Exception exception) {
+        return new TimerTask() {
+            @Override
+            public void run() {
+                String msg = ToolUtil.getExceptionMsg(exception);
+                OperationLog operationLog = LogFactory.createOperationLog(
+                        LogType.EXCEPTION, userId, &quot;&quot;, null, null, msg, LogSucceed.FAIL);
+                try {
+                    operationLogMapper.insert(operationLog);
+                } catch (Exception e) {
+                    logger.error(&quot;创建异常日志异常!&quot;, e);
+                }
+            }
+        };
+    }
+}
+</code></pre><h3 id="记录操作日志"><a href="#记录操作日志" class="headerlink" title="记录操作日志"></a>记录操作日志</h3><blockquote>
+<p>这一步是最关键的一环</p>
+<p>原理:通过自定义的注解@BussinessLog(可以任意命名),里面定义了业务的名称,被修改的实体的唯一标识,字典(用于查找key的中文名称和字段的中文名称),然后通过AOP,拦截所有添加了@BussinessLog注解的方法,解析其注解里面的属性,然后记录到对应的操作日志表中,完成操作日志的记录</p>
+</blockquote>
+<h4 id="BussinessLog"><a href="#BussinessLog" class="headerlink" title="@BussinessLog"></a>@BussinessLog</h4><pre><code>import java.lang.annotation.*;
+
+/**
+ * 标记需要做业务日志的方法
+ */
+@Inherited
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.METHOD})
+public @interface BussinessLog {
+
+    /**
+     * 业务的名称,例如:&quot;修改菜单&quot;
+     */
+    String value() default &quot;&quot;;
+
+    /**
+     * 被修改的实体的唯一标识,例如:菜单实体的唯一标识为&quot;id&quot;
+     */
+    String key() default &quot;id&quot;;
+
+    /**
+     * 字典(用于查找key的中文名称和字段的中文名称)
+     */
+    String dict() default &quot;SystemDict&quot;;
+}
+</code></pre><h4 id="BussinessLog注解拦截AOP"><a href="#BussinessLog注解拦截AOP" class="headerlink" title="@BussinessLog注解拦截AOP"></a>@BussinessLog注解拦截AOP</h4><pre><code>import com.stylefeng.guns.common.annotion.log.BussinessLog;
+import com.stylefeng.guns.common.constant.dictmap.base.AbstractDictMap;
+import com.stylefeng.guns.common.constant.dictmap.factory.DictMapFactory;
+import com.stylefeng.guns.core.log.LogManager;
+import com.stylefeng.guns.core.log.LogObjectHolder;
+import com.stylefeng.guns.core.log.factory.LogTaskFactory;
+import com.stylefeng.guns.core.shiro.ShiroKit;
+import com.stylefeng.guns.core.shiro.ShiroUser;
+import com.stylefeng.guns.core.support.HttpKit;
+import com.stylefeng.guns.core.util.Contrast;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.Signature;
+import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.reflect.MethodSignature;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
+
+import java.lang.reflect.Method;
+import java.util.Map;
+
+/**
+ * 日志记录
+ */
+@Aspect
+@Component
+public class LogAop {
+
+    private Logger log = LoggerFactory.getLogger(this.getClass());
+
+    @Pointcut(value = &quot;@annotation(com.stylefeng.guns.common.annotion.log.BussinessLog)&quot;)
+    public void cutService() {
+    }
+
+    @Around(&quot;cutService()&quot;)
+    public Object recordSysLog(ProceedingJoinPoint point) throws Throwable {
+
+        //先执行业务
+        Object result = point.proceed();
+
+        try {
+            handle(point);
+        } catch (Exception e) {
+            log.error(&quot;日志记录出错!&quot;, e);
+        }
+
+        return result;
+    }
+
+    private void handle(ProceedingJoinPoint point) throws Exception {
+
+        //获取拦截的方法名
+        Signature sig = point.getSignature();
+        MethodSignature msig = null;
+        if (!(sig instanceof MethodSignature)) {
+            throw new IllegalArgumentException(&quot;该注解只能用于方法&quot;);
+        }
+        msig = (MethodSignature) sig;
+        Object target = point.getTarget();
+        Method currentMethod = target.getClass().getMethod(msig.getName(), msig.getParameterTypes());
+        String methodName = currentMethod.getName();
+
+        //如果当前用户未登录，不做日志
+        ShiroUser user = ShiroKit.getUser();
+        if (null == user) {
+            return;
+        }
+
+        //获取拦截方法的参数
+        String className = point.getTarget().getClass().getName();
+        Object[] params = point.getArgs();
+
+        //获取操作名称
+        BussinessLog annotation = currentMethod.getAnnotation(BussinessLog.class);
+        String bussinessName = annotation.value();
+        String key = annotation.key();
+        String dictClass = annotation.dict();
+
+        StringBuilder sb = new StringBuilder();
+        for (Object param : params) {
+            sb.append(param);
+            sb.append(&quot; &amp; &quot;);
+        }
+
+        //如果涉及到修改,比对变化
+        String msg;
+        if (bussinessName.indexOf(&quot;修改&quot;) != -1 || bussinessName.indexOf(&quot;编辑&quot;) != -1) {
+            Object obj1 = LogObjectHolder.me().get();
+            Map&lt;String, String&gt; obj2 = HttpKit.getRequestParameters();
+            msg = Contrast.contrastObj(dictClass, key, obj1, obj2);
+        } else {
+            Map&lt;String, String&gt; parameters = HttpKit.getRequestParameters();
+            AbstractDictMap dictMap = DictMapFactory.createDictMap(dictClass);
+            msg = Contrast.parseMutiKey(dictMap,key,parameters);
+        }
+
+        LogManager.me().executeLog(LogTaskFactory.bussinessLog(user.getId(), bussinessName, className, methodName, msg));
+    }
+}
+</code></pre><h4 id="BussinessLog使用实例"><a href="#BussinessLog使用实例" class="headerlink" title="@BussinessLog使用实例"></a>@BussinessLog使用实例</h4><pre><code>/**
+ * 新增字典
+ @param dictValues 格式例如   &quot;1:启用;2:禁用;3:冻结&quot;
+ */
+@BussinessLog(value = &quot;添加字典记录&quot;, key = &quot;dictName,dictValues&quot;, dict = com.stylefeng.guns.common.constant.Dict.DictMap)
+@RequestMapping(value = &quot;/add&quot;)
+@Permission(Const.ADMIN_NAME)
+@ResponseBody
+public Object add(String dictName, String dictValues) {
+    if (ToolUtil.isOneEmpty(dictName, dictValues)) {
+        throw new BussinessException(BizExceptionEnum.REQUEST_NULL);
+    }
+    dictService.addDict(dictName, dictValues);
+    return SUCCESS_TIP;
+}
+</code></pre><h3 id="3-记录异常日志"><a href="#3-记录异常日志" class="headerlink" title="3.记录异常日志"></a>3.记录异常日志</h3><blockquote>
+<p>记录异常日志其实也是一个重复式的过程,这也可以通过统一的处理来记录异常抛出的日志</p>
+</blockquote>
+<pre><code>import com.stylefeng.guns.common.constant.tips.ErrorTip;
+import com.stylefeng.guns.common.exception.BizExceptionEnum;
+import com.stylefeng.guns.common.exception.BussinessException;
+import com.stylefeng.guns.common.exception.InvalidKaptchaException;
+import com.stylefeng.guns.core.log.LogManager;
+import com.stylefeng.guns.core.log.factory.LogTaskFactory;
+import com.stylefeng.guns.core.shiro.ShiroKit;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.CredentialsException;
+import org.apache.shiro.authc.DisabledAccountException;
+import org.apache.shiro.session.InvalidSessionException;
+import org.apache.shiro.session.UnknownSessionException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.lang.reflect.UndeclaredThrowableException;
+
+import static com.stylefeng.guns.core.support.HttpKit.getIp;
+import static com.stylefeng.guns.core.support.HttpKit.getRequest;
+
+/**
+ * 全局的的异常拦截器（拦截所有的控制器）（带有@RequestMapping注解的方法上都会拦截）
+ */
+@ControllerAdvice
+public class GlobalExceptionHandler {
+
+    private Logger log = LoggerFactory.getLogger(this.getClass());
+
+    /**
+     * 拦截业务异常
+     */
+    @ExceptionHandler(BussinessException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseBody
+    public ErrorTip notFount(BussinessException e) {
+        LogManager.me().executeLog(LogTaskFactory.exceptionLog(ShiroKit.getUser().getId(), e));
+        getRequest().setAttribute(&quot;tip&quot;, e.getMessage());
+        log.error(&quot;业务异常:&quot;, e);
+        return new ErrorTip(e.getCode(), e.getMessage());
+    }
+
+    /**
+     * 用户未登录
+     */
+    @ExceptionHandler(AuthenticationException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public String unAuth(AuthenticationException e) {
+        log.error(&quot;用户未登陆：&quot;, e);
+        return &quot;/login.html&quot;;
+    }
+
+    /**
+     * 账号被冻结
+     */
+    @ExceptionHandler(DisabledAccountException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public String accountLocked(DisabledAccountException e, Model model) {
+        String username = getRequest().getParameter(&quot;username&quot;);
+        LogManager.me().executeLog(LogTaskFactory.loginLog(username, &quot;账号被冻结&quot;, getIp()));
+        model.addAttribute(&quot;tips&quot;, &quot;账号被冻结&quot;);
+        return &quot;/login.html&quot;;
+    }
+
+    /**
+     * 账号密码错误
+     */
+    @ExceptionHandler(CredentialsException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public String credentials(CredentialsException e, Model model) {
+        String username = getRequest().getParameter(&quot;username&quot;);
+        LogManager.me().executeLog(LogTaskFactory.loginLog(username, &quot;账号密码错误&quot;, getIp()));
+        model.addAttribute(&quot;tips&quot;, &quot;账号密码错误&quot;);
+        return &quot;/login.html&quot;;
+    }
+
+    /**
+     * 验证码错误
+     */
+    @ExceptionHandler(InvalidKaptchaException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public String credentials(InvalidKaptchaException e, Model model) {
+        String username = getRequest().getParameter(&quot;username&quot;);
+        LogManager.me().executeLog(LogTaskFactory.loginLog(username, &quot;验证码错误&quot;, getIp()));
+        model.addAttribute(&quot;tips&quot;, &quot;验证码错误&quot;);
+        return &quot;/login.html&quot;;
+    }
+
+    /**
+     * 无权访问该资源
+     */
+    @ExceptionHandler(UndeclaredThrowableException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    @ResponseBody
+    public ErrorTip credentials(UndeclaredThrowableException e) {
+        getRequest().setAttribute(&quot;tip&quot;, &quot;权限异常&quot;);
+        log.error(&quot;权限异常!&quot;, e);
+        return new ErrorTip(BizExceptionEnum.NO_PERMITION);
+    }
+
+    /**
+     * 拦截未知的运行时异常
+     */
+    @ExceptionHandler(RuntimeException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseBody
+    public ErrorTip notFount(RuntimeException e) {
+        LogManager.me().executeLog(LogTaskFactory.exceptionLog(ShiroKit.getUser().getId(), e));
+        getRequest().setAttribute(&quot;tip&quot;, &quot;服务器未知运行时异常&quot;);
+        log.error(&quot;运行时异常:&quot;, e);
+        return new ErrorTip(BizExceptionEnum.SERVER_ERROR);
+    }
+
+    /**
+     * session失效的异常拦截
+     */
+    @ExceptionHandler(InvalidSessionException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public String sessionTimeout(InvalidSessionException e, Model model, HttpServletRequest request, HttpServletResponse response) {
+        model.addAttribute(&quot;tips&quot;, &quot;session超时&quot;);
+        assertAjax(request, response);
+        return &quot;/login.html&quot;;
+    }
+
+    /**
+     * session异常
+     */
+    @ExceptionHandler(UnknownSessionException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public String sessionTimeout(UnknownSessionException e, Model model, HttpServletRequest request, HttpServletResponse response) {
+        model.addAttribute(&quot;tips&quot;, &quot;session超时&quot;);
+        assertAjax(request, response);
+        return &quot;/login.html&quot;;
+    }
+
+    private void assertAjax(HttpServletRequest request, HttpServletResponse response) {
+        if (request.getHeader(&quot;x-requested-with&quot;) != null
+                &amp;&amp; request.getHeader(&quot;x-requested-with&quot;).equalsIgnoreCase(&quot;XMLHttpRequest&quot;)) {
+            //如果是ajax请求响应头会有，x-requested-with
+            response.setHeader(&quot;sessionstatus&quot;, &quot;timeout&quot;);//在响应头设置session状态
+        }
+    }
+
+}
+</code></pre>
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Selegant</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://yoursite.com/2018/09/17/记录日志/">http://yoursite.com/2018/09/17/记录日志/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">Selegant</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Java/">
+                                    <span class="chip bg-color">Java</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2019/01/01/Centos搭建Jenkins环境/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/banner/4.jpg" class="responsive-img" alt="Centos搭建Jenkins环境">
+                        
+                        <span class="card-title">Centos搭建Jenkins环境</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            说明
+Jenkins环境的搭建会有易于开发以及测试环境的快速构建，其中我刚开始尝试了使用Docker搭建Jenkins环境，但是因为刚接触Docker在使用过程中遇到了Docker重置的情况所以在此为了快速应用到实际项目中去使用普通的搭建J
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2019-01-01
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/运维/" class="post-category">
+                                    运维
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Jenkins/">
+                        <span class="chip bg-color">Jenkins</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2018/06/06/冒泡排序/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/banner/2.jpg" class="responsive-img" alt="JAVA实现冒泡排序">
+                        
+                        <span class="card-title">JAVA实现冒泡排序</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            原理：比较两个相邻的元素，将值大的元素交换至右端。
+思路：依次比较相邻的两个数，将小数放在前面，大数放在后面。即在第一趟：首先比较第1个和第2个数，将小数放前，大数放后。然后比较第2个数和第3个数，将小数放前，大数放后，如此继续，直至比较最
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2018-06-06
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/算法/" class="post-category">
+                                    算法
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/算法/">
+                        <span class="chip bg-color">算法</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2019</span>
+            <a href="/about" target="_blank">Selegant</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/Selegant" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1228579928@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1228579928" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1228579928" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/search.xml", 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

@@ -1,0 +1,2084 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="RabbitMQ监控, Selegant">
+    <meta name="description" content="热爱代码，热爱更加自由的生活">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>RabbitMQ监控 | Selegant</title>
+    <link rel="icon" type="image/png" href="https://s1.ax1x.com/2020/05/28/tZoBUe.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="https://s1.ax1x.com/2020/05/28/tZoBUe.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Selegant</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="https://s1.ax1x.com/2020/05/28/tZoBUe.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Selegant</div>
+        <div class="logo-desc">
+            
+            热爱代码，热爱更加自由的生活
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/banner/4.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">RabbitMQ监控</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/消息队列/">
+                                <span class="chip bg-color">消息队列</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/消息队列/" class="post-category">
+                                消息队列
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2019-07-12
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="RabbitMQ消息队列监控API"><a href="#RabbitMQ消息队列监控API" class="headerlink" title="RabbitMQ消息队列监控API"></a>RabbitMQ消息队列监控API</h1><blockquote>
+<p>请求地址 <a href="http://ip:端口号/接口名称" target="_blank" rel="external">http://ip:端口号/接口名称</a></p>
+</blockquote>
+<pre><code>建议监控数据收集间隔为60秒一次
+</code></pre><table>
+<thead>
+<tr>
+<th>HTTP API URL</th>
+<th>HTTP请求类型</th>
+<th>接口含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>/api/connections</td>
+<td>GET</td>
+<td>获取当前RabbitMQ集群下所有打开的连接</td>
+</tr>
+<tr>
+<td>/api/nodes</td>
+<td>GET</td>
+<td>获取当前RabbitMQ集群下所有节点实例的状态信息</td>
+</tr>
+<tr>
+<td>/api/vhosts/{vhost}/connections</td>
+<td>GET</td>
+<td>获取某一个虚拟机主机下的所有打开的connection连接</td>
+</tr>
+<tr>
+<td>/api/connections/{name}/channels</td>
+<td>GET</td>
+<td>获取某一个连接下所有的管道信息</td>
+</tr>
+<tr>
+<td>/api/vhosts/{vhost}/channels</td>
+<td>GET</td>
+<td>获取某一个虚拟机主机下的管道信息</td>
+</tr>
+<tr>
+<td>/api/consumers/{vhost}</td>
+<td>GET</td>
+<td>获取某一个虚拟机主机下的所有消费者信息</td>
+</tr>
+<tr>
+<td>/api/exchanges/{vhost}</td>
+<td>GET</td>
+<td>获取某一个虚拟机主机下面的所有交换器信息</td>
+</tr>
+<tr>
+<td>/api/queues/{vhost}</td>
+<td>GET</td>
+<td>获取某一个虚拟机主机下的所有队列信息</td>
+</tr>
+<tr>
+<td>/api/users</td>
+<td>GET</td>
+<td>获取集群中所有的用户信息</td>
+</tr>
+<tr>
+<td>/api/users/{name}</td>
+<td>GET/PUT/DELETE</td>
+<td>获取/更新/删除指定用户信息</td>
+</tr>
+<tr>
+<td>/api/users/{user}/permissions</td>
+<td>GET</td>
+<td>获取当前指定用户的所有权限信息</td>
+</tr>
+<tr>
+<td>/api/permissions/{vhost}/{user}</td>
+<td>GET/PUT/DELETE</td>
+<td>获取/更新/删除指定虚拟主机下特定用户的权限</td>
+</tr>
+<tr>
+<td>/api/exchanges/{vhost}/{name}/publish</td>
+<td>POST</td>
+<td>在指定的虚拟机主机和交换器上发布一个消息</td>
+</tr>
+<tr>
+<td>/api/queues/{vhost}/{name}/get</td>
+<td>POST</td>
+<td>测在指定虚拟机主机和队列名中获取消息，同时该动作会修改队列状态试</td>
+</tr>
+<tr>
+<td>/api/healthchecks/node/{node}</td>
+<td>GET</td>
+<td>获取指定节点的健康检查状态</td>
+</tr>
+<tr>
+<td>/api/nodes/{node}/memory</td>
+<td>GET</td>
+<td>获取指定节点的内存使用信息</td>
+</tr>
+</tbody>
+</table>
+<h1 id="部分API实例"><a href="#部分API实例" class="headerlink" title="部分API实例"></a>部分API实例</h1><h2 id="api-overview-返回集群度量标准"><a href="#api-overview-返回集群度量标准" class="headerlink" title="/api/overview 返回集群度量标准"></a>/api/overview 返回集群度量标准</h2><table>
+<thead>
+<tr>
+<th>字段名称</th>
+<th>意义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cluster_name</td>
+<td>集群名称</td>
+</tr>
+<tr>
+<td>management_version</td>
+<td>版本</td>
+</tr>
+<tr>
+<td>message_stats</td>
+<td>消息速率</td>
+</tr>
+<tr>
+<td>object_totals.connections</td>
+<td>连接总数</td>
+</tr>
+<tr>
+<td>object_totals.channels</td>
+<td>频道总数</td>
+</tr>
+<tr>
+<td>object_totals.queues</td>
+<td>队列总数</td>
+</tr>
+<tr>
+<td>object_totals.consumers</td>
+<td>消费者总数</td>
+</tr>
+<tr>
+<td>queue_totals.messages</td>
+<td>准备好与未确认的消息总数</td>
+</tr>
+<tr>
+<td>queue_totals.messages_ready</td>
+<td>准备发送的消息数</td>
+</tr>
+<tr>
+<td>queue_totals.messages_unacknowledged</td>
+<td>未确认消息的数量</td>
+</tr>
+<tr>
+<td>message_stats.publish`</td>
+<td>最近发布的消息</td>
+</tr>
+<tr>
+<td>message_stats.publish_details.rate</td>
+<td>消息发布率</td>
+</tr>
+<tr>
+<td>message_stats.deliver_get</td>
+<td>最近发送给消费者的消息</td>
+</tr>
+<tr>
+<td>message_stats.deliver_get.rate</td>
+<td>邮件传递率</td>
+</tr>
+<tr>
+<td>message_stats</td>
+<td>其他消息统计</td>
+</tr>
+</tbody>
+</table>
+<pre><code>    {
+        &quot;management_version&quot;: &quot;3.7.14&quot;,
+        &quot;rates_mode&quot;: &quot;basic&quot;,
+        &quot;sample_retention_policies&quot;: {
+            &quot;global&quot;: [
+                600,
+                3600,
+                28800,
+                86400
+            ],
+            &quot;basic&quot;: [
+                600,
+                3600
+            ],
+            &quot;detailed&quot;: [
+                600
+            ]
+        },
+        &quot;exchange_types&quot;: [
+            {
+                &quot;name&quot;: &quot;fanout&quot;,
+                &quot;description&quot;: &quot;AMQP fanout exchange, as per the AMQP specification&quot;,
+                &quot;enabled&quot;: true
+            },
+            {
+                &quot;name&quot;: &quot;headers&quot;,
+                &quot;description&quot;: &quot;AMQP headers exchange, as per the AMQP specification&quot;,
+                &quot;enabled&quot;: true
+            },
+            {
+                &quot;name&quot;: &quot;x-delayed-message&quot;,
+                &quot;description&quot;: &quot;Delayed Message Exchange.&quot;,
+                &quot;enabled&quot;: true
+            },
+            {
+                &quot;name&quot;: &quot;direct&quot;,
+                &quot;description&quot;: &quot;AMQP direct exchange, as per the AMQP specification&quot;,
+                &quot;enabled&quot;: true
+            },
+            {
+                &quot;name&quot;: &quot;topic&quot;,
+                &quot;description&quot;: &quot;AMQP topic exchange, as per the AMQP specification&quot;,
+                &quot;enabled&quot;: true
+            }
+        ],
+        &quot;rabbitmq_version&quot;: &quot;3.7.14&quot;,
+        &quot;cluster_name&quot;: &quot;rabbit@wangtaodeMacBook-Pro&quot;,
+        &quot;erlang_version&quot;: &quot;21.3.2&quot;,
+        &quot;erlang_full_version&quot;: &quot;Erlang/OTP 21 [erts-10.3.1] [source]
+        [64-bit] [smp:12:12] [ds:12:12:10] [async-threads:192]
+         [hipe] [dtrace]&quot;,
+        &quot;message_stats&quot;: {
+            &quot;disk_reads&quot;: 2,
+            &quot;disk_reads_details&quot;: {
+                &quot;rate&quot;: 0
+            },
+            &quot;disk_writes&quot;: 0,
+            &quot;disk_writes_details&quot;: {
+                &quot;rate&quot;: 0
+            }
+        },
+        &quot;churn_rates&quot;: {
+            &quot;channel_closed&quot;: 0,
+            &quot;channel_closed_details&quot;: {
+                &quot;rate&quot;: 0
+            },
+            &quot;channel_created&quot;: 0,
+            &quot;channel_created_details&quot;: {
+                &quot;rate&quot;: 0
+            },
+            &quot;connection_closed&quot;: 0,
+            &quot;connection_closed_details&quot;: {
+                &quot;rate&quot;: 0
+            },
+            &quot;connection_created&quot;: 0,
+            &quot;connection_created_details&quot;: {
+                &quot;rate&quot;: 0
+            },
+            &quot;queue_created&quot;: 0,
+            &quot;queue_created_details&quot;: {
+                &quot;rate&quot;: 0
+            },
+            &quot;queue_declared&quot;: 0,
+            &quot;queue_declared_details&quot;: {
+                &quot;rate&quot;: 0
+            },
+            &quot;queue_deleted&quot;: 0,
+            &quot;queue_deleted_details&quot;: {
+                &quot;rate&quot;: 0
+            }
+        },
+        &quot;queue_totals&quot;: {
+            &quot;messages&quot;: 2,
+            &quot;messages_details&quot;: {
+                &quot;rate&quot;: 0
+            },
+            &quot;messages_ready&quot;: 2,
+            &quot;messages_ready_details&quot;: {
+                &quot;rate&quot;: 0
+            },
+            &quot;messages_unacknowledged&quot;: 0,
+            &quot;messages_unacknowledged_details&quot;: {
+                &quot;rate&quot;: 0
+            }
+        },
+        &quot;object_totals&quot;: {
+            &quot;channels&quot;: 0,
+            &quot;connections&quot;: 0,
+            &quot;consumers&quot;: 0,
+            &quot;exchanges&quot;: 16,
+            &quot;queues&quot;: 10
+        },
+        &quot;statistics_db_event_queue&quot;: 0,
+        &quot;node&quot;: &quot;rabbit@localhost&quot;,
+        &quot;listeners&quot;: [
+            {
+                &quot;node&quot;: &quot;rabbit@localhost&quot;,
+                &quot;protocol&quot;: &quot;amqp&quot;,
+                &quot;ip_address&quot;: &quot;127.0.0.1&quot;,
+                &quot;port&quot;: 5672,
+                &quot;socket_opts&quot;: {
+                    &quot;backlog&quot;: 128,
+                    &quot;nodelay&quot;: true,
+                    &quot;linger&quot;: [
+                        true,
+                        0
+                    ],
+                    &quot;exit_on_close&quot;: false
+                }
+            },
+            {
+                &quot;node&quot;: &quot;rabbit@localhost&quot;,
+                &quot;protocol&quot;: &quot;clustering&quot;,
+                &quot;ip_address&quot;: &quot;::&quot;,
+                &quot;port&quot;: 25672,
+                &quot;socket_opts&quot;: []
+            },
+            {
+                &quot;node&quot;: &quot;rabbit@localhost&quot;,
+                &quot;protocol&quot;: &quot;http&quot;,
+                &quot;ip_address&quot;: &quot;::&quot;,
+                &quot;port&quot;: 15672,
+                &quot;socket_opts&quot;: {
+                    &quot;port&quot;: 15672
+                }
+            },
+            {
+                &quot;node&quot;: &quot;rabbit@localhost&quot;,
+                &quot;protocol&quot;: &quot;mqtt&quot;,
+                &quot;ip_address&quot;: &quot;::&quot;,
+                &quot;port&quot;: 1883,
+                &quot;socket_opts&quot;: {
+                    &quot;backlog&quot;: 128,
+                    &quot;nodelay&quot;: true
+                }
+            },
+            {
+                &quot;node&quot;: &quot;rabbit@localhost&quot;,
+                &quot;protocol&quot;: &quot;stomp&quot;,
+                &quot;ip_address&quot;: &quot;::&quot;,
+                &quot;port&quot;: 61613,
+                &quot;socket_opts&quot;: {
+                    &quot;backlog&quot;: 128,
+                    &quot;nodelay&quot;: true
+                }
+            }
+        ],
+        &quot;contexts&quot;: [
+            {
+                &quot;ssl_opts&quot;: [],
+                &quot;node&quot;: &quot;rabbit@localhost&quot;,
+                &quot;description&quot;: &quot;RabbitMQ Management&quot;,
+                &quot;path&quot;: &quot;/&quot;,
+                &quot;port&quot;: &quot;15672&quot;
+            }
+        ]
+    }
+</code></pre><h2 id="api-nodes-返回所有集群成员统计消息"><a href="#api-nodes-返回所有集群成员统计消息" class="headerlink" title="/api/nodes 返回所有集群成员统计消息"></a>/api/nodes 返回所有集群成员统计消息</h2><table>
+<thead>
+<tr>
+<th>字段名称</th>
+<th>意义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>mem_used</td>
+<td>使用的内存总量</td>
+</tr>
+<tr>
+<td>mem_limit</td>
+<td>内存使用率</td>
+</tr>
+<tr>
+<td>mem_alarm</td>
+<td>内存警报开关</td>
+</tr>
+<tr>
+<td>disk_free_limit</td>
+<td>磁盘空间限制大小</td>
+</tr>
+<tr>
+<td>disk_free_alarm</td>
+<td>磁盘空间大小限制开关</td>
+</tr>
+<tr>
+<td>fd_total</td>
+<td>文件描述符限制</td>
+</tr>
+<tr>
+<td>fd_used</td>
+<td>文件描述符是否开始</td>
+</tr>
+<tr>
+<td>io_file_handle_open_attempt_count</td>
+<td>io文件句柄打开尝试计数</td>
+</tr>
+<tr>
+<td>sockets_total</td>
+<td>socket数量</td>
+</tr>
+<tr>
+<td>sockets_used</td>
+<td>正在使用的socket数量</td>
+</tr>
+<tr>
+<td>message_stats.disk_reads</td>
+<td>磁盘读取的消息数</td>
+</tr>
+<tr>
+<td>message_stats.disk_writes</td>
+<td>写入磁盘的消息数</td>
+</tr>
+<tr>
+<td>cluster_links</td>
+<td>节点间通信链路</td>
+</tr>
+<tr>
+<td>gc_num</td>
+<td>GC次数</td>
+</tr>
+<tr>
+<td>gc_bytes_reclaimed</td>
+<td>GC回收的字节数</td>
+</tr>
+<tr>
+<td>proc_total</td>
+<td>Erlang进程限制数量</td>
+</tr>
+<tr>
+<td>proc_used</td>
+<td>Erlang进行使用数量</td>
+</tr>
+<tr>
+<td>run_queue</td>
+<td>运行时队列数量</td>
+</tr>
+</tbody>
+</table>
+<pre><code>[
+    {
+        &quot;partitions&quot;: [],
+        &quot;os_pid&quot;: &quot;4470&quot;,
+        &quot;fd_total&quot;: 256,
+        &quot;sockets_total&quot;: 138,
+        &quot;mem_limit&quot;: 6871947673,
+        &quot;mem_alarm&quot;: false,
+        &quot;disk_free_limit&quot;: 50000000,
+        &quot;disk_free_alarm&quot;: false,
+        &quot;proc_total&quot;: 1048576,
+        &quot;rates_mode&quot;: &quot;basic&quot;,
+        &quot;uptime&quot;: 4176419,
+        &quot;run_queue&quot;: 1,
+        &quot;processors&quot;: 12,
+        &quot;exchange_types&quot;: [
+            {
+                &quot;name&quot;: &quot;fanout&quot;,
+                &quot;description&quot;: &quot;AMQP fanout exchange, as per the AMQP specification&quot;,
+                &quot;enabled&quot;: true
+            },
+            {
+                &quot;name&quot;: &quot;headers&quot;,
+                &quot;description&quot;: &quot;AMQP headers exchange, as per the AMQP specification&quot;,
+                &quot;enabled&quot;: true
+            },
+            {
+                &quot;name&quot;: &quot;x-delayed-message&quot;,
+                &quot;description&quot;: &quot;Delayed Message Exchange.&quot;,
+                &quot;enabled&quot;: true
+            },
+            {
+                &quot;name&quot;: &quot;direct&quot;,
+                &quot;description&quot;: &quot;AMQP direct exchange, as per the AMQP specification&quot;,
+                &quot;enabled&quot;: true
+            },
+            {
+                &quot;name&quot;: &quot;topic&quot;,
+                &quot;description&quot;: &quot;AMQP topic exchange, as per the AMQP specification&quot;,
+                &quot;enabled&quot;: true
+            }
+        ],
+        &quot;auth_mechanisms&quot;: [
+            {
+                &quot;name&quot;: &quot;RABBIT-CR-DEMO&quot;,
+                &quot;description&quot;: &quot;RabbitMQ Demo challenge-response authentication mechanism&quot;,
+                &quot;enabled&quot;: false
+            },
+            {
+                &quot;name&quot;: &quot;AMQPLAIN&quot;,
+                &quot;description&quot;: &quot;QPid AMQPLAIN mechanism&quot;,
+                &quot;enabled&quot;: true
+            },
+            {
+                &quot;name&quot;: &quot;PLAIN&quot;,
+                &quot;description&quot;: &quot;SASL PLAIN authentication mechanism&quot;,
+                &quot;enabled&quot;: true
+            }
+        ],
+        &quot;applications&quot;: [
+            {
+                &quot;name&quot;: &quot;amqp10_common&quot;,
+                &quot;description&quot;: &quot;Modules shared by rabbitmq-amqp1.0 
+                and rabbitmq-amqp1.0-client&quot;,
+                &quot;version&quot;: &quot;3.7.14&quot;
+            },
+            {
+                &quot;name&quot;: &quot;amqp_client&quot;,
+                &quot;description&quot;: &quot;RabbitMQ AMQP Client&quot;,
+                &quot;version&quot;: &quot;3.7.14&quot;
+            },
+            {
+                &quot;name&quot;: &quot;asn1&quot;,
+                &quot;description&quot;: &quot;The Erlang ASN1 compiler version 5.0.8&quot;,
+                &quot;version&quot;: &quot;5.0.8&quot;
+            },
+            {
+                &quot;name&quot;: &quot;compiler&quot;,
+                &quot;description&quot;: &quot;ERTS  CXC 138 10&quot;,
+                &quot;version&quot;: &quot;7.3.2&quot;
+            },
+            {
+                &quot;name&quot;: &quot;cowboy&quot;,
+                &quot;description&quot;: &quot;Small, fast, modern HTTP server.&quot;,
+                &quot;version&quot;: &quot;2.6.1&quot;
+            },
+            {
+                &quot;name&quot;: &quot;cowlib&quot;,
+                &quot;description&quot;: &quot;Support library for manipulating Web protocols.&quot;,
+                &quot;version&quot;: &quot;2.7.0&quot;
+            },
+            {
+                &quot;name&quot;: &quot;crypto&quot;,
+                &quot;description&quot;: &quot;CRYPTO&quot;,
+                &quot;version&quot;: &quot;4.4.1&quot;
+            },
+            {
+                &quot;name&quot;: &quot;goldrush&quot;,
+                &quot;description&quot;: &quot;Erlang event stream processor&quot;,
+                &quot;version&quot;: &quot;0.1.9&quot;
+            },
+            {
+                &quot;name&quot;: &quot;inets&quot;,
+                &quot;description&quot;: &quot;INETS  CXC 138 49&quot;,
+                &quot;version&quot;: &quot;7.0.6&quot;
+            },
+            {
+                &quot;name&quot;: &quot;jsx&quot;,
+                &quot;description&quot;: &quot;a streaming, evented json parsing toolkit&quot;,
+                &quot;version&quot;: &quot;2.9.0&quot;
+            },
+            {
+                &quot;name&quot;: &quot;kernel&quot;,
+                &quot;description&quot;: &quot;ERTS  CXC 138 10&quot;,
+                &quot;version&quot;: &quot;6.3&quot;
+            },
+            {
+                &quot;name&quot;: &quot;lager&quot;,
+                &quot;description&quot;: &quot;Erlang logging framework&quot;,
+                &quot;version&quot;: &quot;3.6.9&quot;
+            },
+            {
+                &quot;name&quot;: &quot;mnesia&quot;,
+                &quot;description&quot;: &quot;MNESIA  CXC 138 12&quot;,
+                &quot;version&quot;: &quot;4.15.6&quot;
+            },
+            {
+                &quot;name&quot;: &quot;os_mon&quot;,
+                &quot;description&quot;: &quot;CPO  CXC 138 46&quot;,
+                &quot;version&quot;: &quot;2.4.7&quot;
+            },
+            {
+                &quot;name&quot;: &quot;public_key&quot;,
+                &quot;description&quot;: &quot;Public key infrastructure&quot;,
+                &quot;version&quot;: &quot;1.6.5&quot;
+            },
+            {
+                &quot;name&quot;: &quot;rabbit&quot;,
+                &quot;description&quot;: &quot;RabbitMQ&quot;,
+                &quot;version&quot;: &quot;3.7.14&quot;
+            },
+            {
+                &quot;name&quot;: &quot;rabbit_common&quot;,
+                &quot;description&quot;: &quot;Modules shared by rabbitmq-server 
+                and rabbitmq-erlang-client&quot;,
+                &quot;version&quot;: &quot;3.7.14&quot;
+            },
+            {
+                &quot;name&quot;: &quot;rabbitmq_amqp1_0&quot;,
+                &quot;description&quot;: &quot;AMQP 1.0 support for RabbitMQ&quot;,
+                &quot;version&quot;: &quot;3.7.14&quot;
+            },
+            {
+                &quot;name&quot;: &quot;rabbitmq_delayed_message_exchange&quot;,
+                &quot;description&quot;: &quot;RabbitMQ Delayed Message Exchange&quot;,
+                &quot;version&quot;: &quot;20171201-3.7.x&quot;
+            },
+            {
+                &quot;name&quot;: &quot;rabbitmq_management&quot;,
+                &quot;description&quot;: &quot;RabbitMQ Management Console&quot;,
+                &quot;version&quot;: &quot;3.7.14&quot;
+            },
+            {
+                &quot;name&quot;: &quot;rabbitmq_management_agent&quot;,
+                &quot;description&quot;: &quot;RabbitMQ Management Agent&quot;,
+                &quot;version&quot;: &quot;3.7.14&quot;
+            },
+            {
+                &quot;name&quot;: &quot;rabbitmq_mqtt&quot;,
+                &quot;description&quot;: &quot;RabbitMQ MQTT Adapter&quot;,
+                &quot;version&quot;: &quot;3.7.14&quot;
+            },
+            {
+                &quot;name&quot;: &quot;rabbitmq_stomp&quot;,
+                &quot;description&quot;: &quot;RabbitMQ STOMP plugin&quot;,
+                &quot;version&quot;: &quot;3.7.14&quot;
+            },
+            {
+                &quot;name&quot;: &quot;rabbitmq_web_dispatch&quot;,
+                &quot;description&quot;: &quot;RabbitMQ Web Dispatcher&quot;,
+                &quot;version&quot;: &quot;3.7.14&quot;
+            },
+            {
+                &quot;name&quot;: &quot;ranch&quot;,
+                &quot;description&quot;: &quot;Socket acceptor pool for TCP protocols.&quot;,
+                &quot;version&quot;: &quot;1.7.1&quot;
+            },
+            {
+                &quot;name&quot;: &quot;recon&quot;,
+                &quot;description&quot;: &quot;Diagnostic tools for production use&quot;,
+                &quot;version&quot;: &quot;2.4.0&quot;
+            },
+            {
+                &quot;name&quot;: &quot;sasl&quot;,
+                &quot;description&quot;: &quot;SASL  CXC 138 11&quot;,
+                &quot;version&quot;: &quot;3.3&quot;
+            },
+            {
+                &quot;name&quot;: &quot;ssl&quot;,
+                &quot;description&quot;: &quot;Erlang/OTP SSL application&quot;,
+                &quot;version&quot;: &quot;9.2.1&quot;
+            },
+            {
+                &quot;name&quot;: &quot;stdlib&quot;,
+                &quot;description&quot;: &quot;ERTS  CXC 138 10&quot;,
+                &quot;version&quot;: &quot;3.8&quot;
+            },
+            {
+                &quot;name&quot;: &quot;syntax_tools&quot;,
+                &quot;description&quot;: &quot;Syntax tools&quot;,
+                &quot;version&quot;: &quot;2.1.7&quot;
+            },
+            {
+                &quot;name&quot;: &quot;sysmon_handler&quot;,
+                &quot;description&quot;: &quot;Rate-limiting system_monitor event handler&quot;,
+                &quot;version&quot;: &quot;1.1.0&quot;
+            },
+            {
+                &quot;name&quot;: &quot;xmerl&quot;,
+                &quot;description&quot;: &quot;XML parser&quot;,
+                &quot;version&quot;: &quot;1.3.20&quot;
+            }
+        ],
+        &quot;contexts&quot;: [
+            {
+                &quot;description&quot;: &quot;RabbitMQ Management&quot;,
+                &quot;path&quot;: &quot;/&quot;,
+                &quot;port&quot;: &quot;15672&quot;
+            }
+        ],
+        &quot;log_files&quot;: [
+            &quot;/usr/local/var/log/rabbitmq/rabbit@localhost.log&quot;,
+            &quot;/usr/local/var/log/rabbitmq/rabbit@localhost_upgrade.log&quot;
+        ],
+        &quot;db_dir&quot;: &quot;/usr/local/var/lib/rabbitmq/mnesia/rabbit@localhost&quot;,
+        &quot;config_files&quot;: [],
+        &quot;net_ticktime&quot;: 60,
+        &quot;enabled_plugins&quot;: [
+            &quot;rabbitmq_amqp1_0&quot;,
+            &quot;rabbitmq_delayed_message_exchange&quot;,
+            &quot;rabbitmq_management&quot;,
+            &quot;rabbitmq_mqtt&quot;,
+            &quot;rabbitmq_stomp&quot;
+        ],
+        &quot;mem_calculation_strategy&quot;: &quot;rss&quot;,
+        &quot;name&quot;: &quot;rabbit@localhost&quot;,
+        &quot;type&quot;: &quot;disc&quot;,
+        &quot;running&quot;: true,
+        &quot;mem_used&quot;: 86556672,
+        &quot;mem_used_details&quot;: {
+            &quot;rate&quot;: 4096
+        },
+        &quot;fd_used&quot;: 72,
+        &quot;fd_used_details&quot;: {
+            &quot;rate&quot;: -0.4
+        },
+        &quot;sockets_used&quot;: 0,
+        &quot;sockets_used_details&quot;: {
+            &quot;rate&quot;: 0
+        },
+        &quot;proc_used&quot;: 457,
+        &quot;proc_used_details&quot;: {
+            &quot;rate&quot;: 0
+        },
+        &quot;disk_free&quot;: 172579655680,
+        &quot;disk_free_details&quot;: {
+            &quot;rate&quot;: -15564.8
+        },
+        &quot;gc_num&quot;: 22686,
+        &quot;gc_num_details&quot;: {
+            &quot;rate&quot;: 4.6
+        },
+        &quot;gc_bytes_reclaimed&quot;: 1060411720,
+        &quot;gc_bytes_reclaimed_details&quot;: {
+            &quot;rate&quot;: 158604.8
+        },
+        &quot;context_switches&quot;: 307064,
+        &quot;context_switches_details&quot;: {
+            &quot;rate&quot;: 37.4
+        },
+        &quot;io_read_count&quot;: 22,
+        &quot;io_read_count_details&quot;: {
+            &quot;rate&quot;: 0
+        },
+        &quot;io_read_bytes&quot;: 2083,
+        &quot;io_read_bytes_details&quot;: {
+            &quot;rate&quot;: 0
+        },
+        &quot;io_read_avg_time&quot;: 0.02909090909090909,
+        &quot;io_read_avg_time_details&quot;: {
+            &quot;rate&quot;: 0
+        },
+        &quot;io_write_count&quot;: 0,
+        &quot;io_write_count_details&quot;: {
+            &quot;rate&quot;: 0
+        },
+        &quot;io_write_bytes&quot;: 0,
+        &quot;io_write_bytes_details&quot;: {
+            &quot;rate&quot;: 0
+        },
+        &quot;io_write_avg_time&quot;: 0,
+        &quot;io_write_avg_time_details&quot;: {
+            &quot;rate&quot;: 0
+        },
+        &quot;io_sync_count&quot;: 0,
+        &quot;io_sync_count_details&quot;: {
+            &quot;rate&quot;: 0
+        },
+        &quot;io_sync_avg_time&quot;: 0,
+        &quot;io_sync_avg_time_details&quot;: {
+            &quot;rate&quot;: 0
+        },
+        &quot;io_seek_count&quot;: 0,
+        &quot;io_seek_count_details&quot;: {
+            &quot;rate&quot;: 0
+        },
+        &quot;io_seek_avg_time&quot;: 0,
+        &quot;io_seek_avg_time_details&quot;: {
+            &quot;rate&quot;: 0
+        },
+        &quot;io_reopen_count&quot;: 0,
+        &quot;io_reopen_count_details&quot;: {
+            &quot;rate&quot;: 0
+        },
+        &quot;mnesia_ram_tx_count&quot;: 60,
+        &quot;mnesia_ram_tx_count_details&quot;: {
+            &quot;rate&quot;: 0
+        },
+        &quot;mnesia_disk_tx_count&quot;: 10,
+        &quot;mnesia_disk_tx_count_details&quot;: {
+            &quot;rate&quot;: 0
+        },
+        &quot;msg_store_read_count&quot;: 0,
+        &quot;msg_store_read_count_details&quot;: {
+            &quot;rate&quot;: 0
+        },
+        &quot;msg_store_write_count&quot;: 0,
+        &quot;msg_store_write_count_details&quot;: {
+            &quot;rate&quot;: 0
+        },
+        &quot;queue_index_journal_write_count&quot;: 0,
+        &quot;queue_index_journal_write_count_details&quot;: {
+            &quot;rate&quot;: 0
+        },
+        &quot;queue_index_write_count&quot;: 0,
+        &quot;queue_index_write_count_details&quot;: {
+            &quot;rate&quot;: 0
+        },
+        &quot;queue_index_read_count&quot;: 3,
+        &quot;queue_index_read_count_details&quot;: {
+            &quot;rate&quot;: 0
+        },
+        &quot;io_file_handle_open_attempt_count&quot;: 73,
+        &quot;io_file_handle_open_attempt_count_details&quot;: {
+            &quot;rate&quot;: 0
+        },
+        &quot;io_file_handle_open_attempt_avg_time&quot;: 0.031643835616438354,
+        &quot;io_file_handle_open_attempt_avg_time_details&quot;: {
+            &quot;rate&quot;: 0
+        },
+        &quot;connection_created&quot;: 0,
+        &quot;connection_created_details&quot;: {
+            &quot;rate&quot;: 0
+        },
+        &quot;connection_closed&quot;: 0,
+        &quot;connection_closed_details&quot;: {
+            &quot;rate&quot;: 0
+        },
+        &quot;channel_created&quot;: 0,
+        &quot;channel_created_details&quot;: {
+            &quot;rate&quot;: 0
+        },
+        &quot;channel_closed&quot;: 0,
+        &quot;channel_closed_details&quot;: {
+            &quot;rate&quot;: 0
+        },
+        &quot;queue_declared&quot;: 0,
+        &quot;queue_declared_details&quot;: {
+            &quot;rate&quot;: 0
+        },
+        &quot;queue_created&quot;: 0,
+        &quot;queue_created_details&quot;: {
+            &quot;rate&quot;: 0
+        },
+        &quot;queue_deleted&quot;: 0,
+        &quot;queue_deleted_details&quot;: {
+            &quot;rate&quot;: 0
+        },
+        &quot;cluster_links&quot;: [],
+        &quot;metrics_gc_queue_length&quot;: {
+            &quot;connection_closed&quot;: 0,
+            &quot;channel_closed&quot;: 0,
+            &quot;consumer_deleted&quot;: 0,
+            &quot;exchange_deleted&quot;: 0,
+            &quot;queue_deleted&quot;: 0,
+            &quot;vhost_deleted&quot;: 0,
+            &quot;node_node_deleted&quot;: 0,
+            &quot;channel_consumer_deleted&quot;: 0
+        }
+    }
+]
+</code></pre><h2 id="api-nodes-node名称-返回单个节点的统计信息"><a href="#api-nodes-node名称-返回单个节点的统计信息" class="headerlink" title="/api/nodes/{node名称} 返回单个节点的统计信息"></a>/api/nodes/{node名称} 返回单个节点的统计信息</h2><pre><code>{
+    &quot;partitions&quot;: [],
+    &quot;os_pid&quot;: &quot;4470&quot;,
+    &quot;fd_total&quot;: 256,
+    &quot;sockets_total&quot;: 138,
+    &quot;mem_limit&quot;: 6871947673,
+    &quot;mem_alarm&quot;: false,
+    &quot;disk_free_limit&quot;: 50000000,
+    &quot;disk_free_alarm&quot;: false,
+    &quot;proc_total&quot;: 1048576,
+    &quot;rates_mode&quot;: &quot;basic&quot;,
+    &quot;uptime&quot;: 11728280,
+    &quot;run_queue&quot;: 1,
+    &quot;processors&quot;: 12,
+    &quot;exchange_types&quot;: [
+        {
+            &quot;name&quot;: &quot;fanout&quot;,
+            &quot;description&quot;: &quot;AMQP fanout exchange, as per the AMQP specification&quot;,
+            &quot;enabled&quot;: true
+        },
+        {
+            &quot;name&quot;: &quot;headers&quot;,
+            &quot;description&quot;: &quot;AMQP headers exchange, as per the AMQP specification&quot;,
+            &quot;enabled&quot;: true
+        },
+        {
+            &quot;name&quot;: &quot;x-delayed-message&quot;,
+            &quot;description&quot;: &quot;Delayed Message Exchange.&quot;,
+            &quot;enabled&quot;: true
+        },
+        {
+            &quot;name&quot;: &quot;direct&quot;,
+            &quot;description&quot;: &quot;AMQP direct exchange, as per the AMQP specification&quot;,
+            &quot;enabled&quot;: true
+        },
+        {
+            &quot;name&quot;: &quot;topic&quot;,
+            &quot;description&quot;: &quot;AMQP topic exchange, as per the AMQP specification&quot;,
+            &quot;enabled&quot;: true
+        }
+    ],
+    &quot;auth_mechanisms&quot;: [
+        {
+            &quot;name&quot;: &quot;RABBIT-CR-DEMO&quot;,
+            &quot;description&quot;: &quot;RabbitMQ Demo challenge-response authentication mechanism&quot;,
+            &quot;enabled&quot;: false
+        },
+        {
+            &quot;name&quot;: &quot;AMQPLAIN&quot;,
+            &quot;description&quot;: &quot;QPid AMQPLAIN mechanism&quot;,
+            &quot;enabled&quot;: true
+        },
+        {
+            &quot;name&quot;: &quot;PLAIN&quot;,
+            &quot;description&quot;: &quot;SASL PLAIN authentication mechanism&quot;,
+            &quot;enabled&quot;: true
+        }
+    ],
+    &quot;applications&quot;: [
+        {
+            &quot;name&quot;: &quot;amqp10_common&quot;,
+            &quot;description&quot;: &quot;Modules shared by rabbitmq-amqp1.0 and rabbitmq-amqp1.0-client&quot;,
+            &quot;version&quot;: &quot;3.7.14&quot;
+        },
+        {
+            &quot;name&quot;: &quot;amqp_client&quot;,
+            &quot;description&quot;: &quot;RabbitMQ AMQP Client&quot;,
+            &quot;version&quot;: &quot;3.7.14&quot;
+        },
+        {
+            &quot;name&quot;: &quot;asn1&quot;,
+            &quot;description&quot;: &quot;The Erlang ASN1 compiler version 5.0.8&quot;,
+            &quot;version&quot;: &quot;5.0.8&quot;
+        },
+        {
+            &quot;name&quot;: &quot;compiler&quot;,
+            &quot;description&quot;: &quot;ERTS  CXC 138 10&quot;,
+            &quot;version&quot;: &quot;7.3.2&quot;
+        },
+        {
+            &quot;name&quot;: &quot;cowboy&quot;,
+            &quot;description&quot;: &quot;Small, fast, modern HTTP server.&quot;,
+            &quot;version&quot;: &quot;2.6.1&quot;
+        },
+        {
+            &quot;name&quot;: &quot;cowlib&quot;,
+            &quot;description&quot;: &quot;Support library for manipulating Web protocols.&quot;,
+            &quot;version&quot;: &quot;2.7.0&quot;
+        },
+        {
+            &quot;name&quot;: &quot;crypto&quot;,
+            &quot;description&quot;: &quot;CRYPTO&quot;,
+            &quot;version&quot;: &quot;4.4.1&quot;
+        },
+        {
+            &quot;name&quot;: &quot;goldrush&quot;,
+            &quot;description&quot;: &quot;Erlang event stream processor&quot;,
+            &quot;version&quot;: &quot;0.1.9&quot;
+        },
+        {
+            &quot;name&quot;: &quot;inets&quot;,
+            &quot;description&quot;: &quot;INETS  CXC 138 49&quot;,
+            &quot;version&quot;: &quot;7.0.6&quot;
+        },
+        {
+            &quot;name&quot;: &quot;jsx&quot;,
+            &quot;description&quot;: &quot;a streaming, evented json parsing toolkit&quot;,
+            &quot;version&quot;: &quot;2.9.0&quot;
+        },
+        {
+            &quot;name&quot;: &quot;kernel&quot;,
+            &quot;description&quot;: &quot;ERTS  CXC 138 10&quot;,
+            &quot;version&quot;: &quot;6.3&quot;
+        },
+        {
+            &quot;name&quot;: &quot;lager&quot;,
+            &quot;description&quot;: &quot;Erlang logging framework&quot;,
+            &quot;version&quot;: &quot;3.6.9&quot;
+        },
+        {
+            &quot;name&quot;: &quot;mnesia&quot;,
+            &quot;description&quot;: &quot;MNESIA  CXC 138 12&quot;,
+            &quot;version&quot;: &quot;4.15.6&quot;
+        },
+        {
+            &quot;name&quot;: &quot;os_mon&quot;,
+            &quot;description&quot;: &quot;CPO  CXC 138 46&quot;,
+            &quot;version&quot;: &quot;2.4.7&quot;
+        },
+        {
+            &quot;name&quot;: &quot;public_key&quot;,
+            &quot;description&quot;: &quot;Public key infrastructure&quot;,
+            &quot;version&quot;: &quot;1.6.5&quot;
+        },
+        {
+            &quot;name&quot;: &quot;rabbit&quot;,
+            &quot;description&quot;: &quot;RabbitMQ&quot;,
+            &quot;version&quot;: &quot;3.7.14&quot;
+        },
+        {
+            &quot;name&quot;: &quot;rabbit_common&quot;,
+            &quot;description&quot;: &quot;Modules shared by rabbitmq-server and rabbitmq-erlang-client&quot;,
+            &quot;version&quot;: &quot;3.7.14&quot;
+        },
+        {
+            &quot;name&quot;: &quot;rabbitmq_amqp1_0&quot;,
+            &quot;description&quot;: &quot;AMQP 1.0 support for RabbitMQ&quot;,
+            &quot;version&quot;: &quot;3.7.14&quot;
+        },
+        {
+            &quot;name&quot;: &quot;rabbitmq_delayed_message_exchange&quot;,
+            &quot;description&quot;: &quot;RabbitMQ Delayed Message Exchange&quot;,
+            &quot;version&quot;: &quot;20171201-3.7.x&quot;
+        },
+        {
+            &quot;name&quot;: &quot;rabbitmq_management&quot;,
+            &quot;description&quot;: &quot;RabbitMQ Management Console&quot;,
+            &quot;version&quot;: &quot;3.7.14&quot;
+        },
+        {
+            &quot;name&quot;: &quot;rabbitmq_management_agent&quot;,
+            &quot;description&quot;: &quot;RabbitMQ Management Agent&quot;,
+            &quot;version&quot;: &quot;3.7.14&quot;
+        },
+        {
+            &quot;name&quot;: &quot;rabbitmq_mqtt&quot;,
+            &quot;description&quot;: &quot;RabbitMQ MQTT Adapter&quot;,
+            &quot;version&quot;: &quot;3.7.14&quot;
+        },
+        {
+            &quot;name&quot;: &quot;rabbitmq_stomp&quot;,
+            &quot;description&quot;: &quot;RabbitMQ STOMP plugin&quot;,
+            &quot;version&quot;: &quot;3.7.14&quot;
+        },
+        {
+            &quot;name&quot;: &quot;rabbitmq_web_dispatch&quot;,
+            &quot;description&quot;: &quot;RabbitMQ Web Dispatcher&quot;,
+            &quot;version&quot;: &quot;3.7.14&quot;
+        },
+        {
+            &quot;name&quot;: &quot;ranch&quot;,
+            &quot;description&quot;: &quot;Socket acceptor pool for TCP protocols.&quot;,
+            &quot;version&quot;: &quot;1.7.1&quot;
+        },
+        {
+            &quot;name&quot;: &quot;recon&quot;,
+            &quot;description&quot;: &quot;Diagnostic tools for production use&quot;,
+            &quot;version&quot;: &quot;2.4.0&quot;
+        },
+        {
+            &quot;name&quot;: &quot;sasl&quot;,
+            &quot;description&quot;: &quot;SASL  CXC 138 11&quot;,
+            &quot;version&quot;: &quot;3.3&quot;
+        },
+        {
+            &quot;name&quot;: &quot;ssl&quot;,
+            &quot;description&quot;: &quot;Erlang/OTP SSL application&quot;,
+            &quot;version&quot;: &quot;9.2.1&quot;
+        },
+        {
+            &quot;name&quot;: &quot;stdlib&quot;,
+            &quot;description&quot;: &quot;ERTS  CXC 138 10&quot;,
+            &quot;version&quot;: &quot;3.8&quot;
+        },
+        {
+            &quot;name&quot;: &quot;syntax_tools&quot;,
+            &quot;description&quot;: &quot;Syntax tools&quot;,
+            &quot;version&quot;: &quot;2.1.7&quot;
+        },
+        {
+            &quot;name&quot;: &quot;sysmon_handler&quot;,
+            &quot;description&quot;: &quot;Rate-limiting system_monitor event handler&quot;,
+            &quot;version&quot;: &quot;1.1.0&quot;
+        },
+        {
+            &quot;name&quot;: &quot;xmerl&quot;,
+            &quot;description&quot;: &quot;XML parser&quot;,
+            &quot;version&quot;: &quot;1.3.20&quot;
+        }
+    ],
+    &quot;contexts&quot;: [
+        {
+            &quot;description&quot;: &quot;RabbitMQ Management&quot;,
+            &quot;path&quot;: &quot;/&quot;,
+            &quot;port&quot;: &quot;15672&quot;
+        }
+    ],
+    &quot;log_files&quot;: [
+        &quot;/usr/local/var/log/rabbitmq/rabbit@localhost.log&quot;,
+        &quot;/usr/local/var/log/rabbitmq/rabbit@localhost_upgrade.log&quot;
+    ],
+    &quot;db_dir&quot;: &quot;/usr/local/var/lib/rabbitmq/mnesia/rabbit@localhost&quot;,
+    &quot;config_files&quot;: [],
+    &quot;net_ticktime&quot;: 60,
+    &quot;enabled_plugins&quot;: [
+        &quot;rabbitmq_amqp1_0&quot;,
+        &quot;rabbitmq_delayed_message_exchange&quot;,
+        &quot;rabbitmq_management&quot;,
+        &quot;rabbitmq_mqtt&quot;,
+        &quot;rabbitmq_stomp&quot;
+    ],
+    &quot;mem_calculation_strategy&quot;: &quot;rss&quot;,
+    &quot;name&quot;: &quot;rabbit@localhost&quot;,
+    &quot;running&quot;: true,
+    &quot;type&quot;: &quot;disc&quot;,
+    &quot;mem_used&quot;: 86814720,
+    &quot;mem_used_details&quot;: {
+        &quot;rate&quot;: -117964.8
+    },
+    &quot;fd_used&quot;: 72,
+    &quot;fd_used_details&quot;: {
+        &quot;rate&quot;: 0
+    },
+    &quot;sockets_used&quot;: 0,
+    &quot;sockets_used_details&quot;: {
+        &quot;rate&quot;: 0
+    },
+    &quot;proc_used&quot;: 457,
+    &quot;proc_used_details&quot;: {
+        &quot;rate&quot;: 0
+    },
+    &quot;disk_free&quot;: 172549808128,
+    &quot;disk_free_details&quot;: {
+        &quot;rate&quot;: -31129.6
+    },
+    &quot;gc_num&quot;: 38308,
+    &quot;gc_num_details&quot;: {
+        &quot;rate&quot;: 3.4
+    },
+    &quot;gc_bytes_reclaimed&quot;: 1616503320,
+    &quot;gc_bytes_reclaimed_details&quot;: {
+        &quot;rate&quot;: 152201.6
+    },
+    &quot;context_switches&quot;: 423307,
+    &quot;context_switches_details&quot;: {
+        &quot;rate&quot;: 37.6
+    },
+    &quot;io_read_count&quot;: 22,
+    &quot;io_read_count_details&quot;: {
+        &quot;rate&quot;: 0
+    },
+    &quot;io_read_bytes&quot;: 2083,
+    &quot;io_read_bytes_details&quot;: {
+        &quot;rate&quot;: 0
+    },
+    &quot;io_read_avg_time&quot;: 0.02909090909090909,
+    &quot;io_read_avg_time_details&quot;: {
+        &quot;rate&quot;: 0
+    },
+    &quot;io_write_count&quot;: 0,
+    &quot;io_write_count_details&quot;: {
+        &quot;rate&quot;: 0
+    },
+    &quot;io_write_bytes&quot;: 0,
+    &quot;io_write_bytes_details&quot;: {
+        &quot;rate&quot;: 0
+    },
+    &quot;io_write_avg_time&quot;: 0,
+    &quot;io_write_avg_time_details&quot;: {
+        &quot;rate&quot;: 0
+    },
+    &quot;io_sync_count&quot;: 0,
+    &quot;io_sync_count_details&quot;: {
+        &quot;rate&quot;: 0
+    },
+    &quot;io_sync_avg_time&quot;: 0,
+    &quot;io_sync_avg_time_details&quot;: {
+        &quot;rate&quot;: 0
+    },
+    &quot;io_seek_count&quot;: 0,
+    &quot;io_seek_count_details&quot;: {
+        &quot;rate&quot;: 0
+    },
+    &quot;io_seek_avg_time&quot;: 0,
+    &quot;io_seek_avg_time_details&quot;: {
+        &quot;rate&quot;: 0
+    },
+    &quot;io_reopen_count&quot;: 0,
+    &quot;io_reopen_count_details&quot;: {
+        &quot;rate&quot;: 0
+    },
+    &quot;mnesia_ram_tx_count&quot;: 60,
+    &quot;mnesia_ram_tx_count_details&quot;: {
+        &quot;rate&quot;: 0
+    },
+    &quot;mnesia_disk_tx_count&quot;: 10,
+    &quot;mnesia_disk_tx_count_details&quot;: {
+        &quot;rate&quot;: 0
+    },
+    &quot;msg_store_read_count&quot;: 0,
+    &quot;msg_store_read_count_details&quot;: {
+        &quot;rate&quot;: 0
+    },
+    &quot;msg_store_write_count&quot;: 0,
+    &quot;msg_store_write_count_details&quot;: {
+        &quot;rate&quot;: 0
+    },
+    &quot;queue_index_journal_write_count&quot;: 0,
+    &quot;queue_index_journal_write_count_details&quot;: {
+        &quot;rate&quot;: 0
+    },
+    &quot;queue_index_write_count&quot;: 0,
+    &quot;queue_index_write_count_details&quot;: {
+        &quot;rate&quot;: 0
+    },
+    &quot;queue_index_read_count&quot;: 3,
+    &quot;queue_index_read_count_details&quot;: {
+        &quot;rate&quot;: 0
+    },
+    &quot;io_file_handle_open_attempt_count&quot;: 73,
+    &quot;io_file_handle_open_attempt_count_details&quot;: {
+        &quot;rate&quot;: 0
+    },
+    &quot;io_file_handle_open_attempt_avg_time&quot;: 0.031643835616438354,
+    &quot;io_file_handle_open_attempt_avg_time_details&quot;: {
+        &quot;rate&quot;: 0
+    },
+    &quot;connection_created&quot;: 0,
+    &quot;connection_created_details&quot;: {
+        &quot;rate&quot;: 0
+    },
+    &quot;connection_closed&quot;: 0,
+    &quot;connection_closed_details&quot;: {
+        &quot;rate&quot;: 0
+    },
+    &quot;channel_created&quot;: 0,
+    &quot;channel_created_details&quot;: {
+        &quot;rate&quot;: 0
+    },
+    &quot;channel_closed&quot;: 0,
+    &quot;channel_closed_details&quot;: {
+        &quot;rate&quot;: 0
+    },
+    &quot;queue_declared&quot;: 0,
+    &quot;queue_declared_details&quot;: {
+        &quot;rate&quot;: 0
+    },
+    &quot;queue_created&quot;: 0,
+    &quot;queue_created_details&quot;: {
+        &quot;rate&quot;: 0
+    },
+    &quot;queue_deleted&quot;: 0,
+    &quot;queue_deleted_details&quot;: {
+        &quot;rate&quot;: 0
+    },
+    &quot;cluster_links&quot;: [],
+    &quot;metrics_gc_queue_length&quot;: {
+        &quot;connection_closed&quot;: 0,
+        &quot;channel_closed&quot;: 0,
+        &quot;consumer_deleted&quot;: 0,
+        &quot;exchange_deleted&quot;: 0,
+        &quot;queue_deleted&quot;: 0,
+        &quot;vhost_deleted&quot;: 0,
+        &quot;node_node_deleted&quot;: 0,
+        &quot;channel_consumer_deleted&quot;: 0
+    }
+}
+</code></pre>
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Selegant</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://yoursite.com/2019/07/12/RabbitMQ监控/">http://yoursite.com/2019/07/12/RabbitMQ监控/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">Selegant</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/消息队列/">
+                                    <span class="chip bg-color">消息队列</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2019/07/14/Hadoop基础概念/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/banner/6.jpg" class="responsive-img" alt="Hadoop基础概念">
+                        
+                        <span class="card-title">Hadoop基础概念</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            Hadoop基础概念Hadoop起源Hadoop起源于开源网络搜索引擎Apache Nutch，它也是后来的Lucene项目其中的一部分，因为搜索引擎需要大量的存储网页爬取和索引过程中产生的超大文件，所以Nutch团队基于&quot;谷歌分
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2019-07-14
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/大数据/" class="post-category">
+                                    大数据
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/大数据/">
+                        <span class="chip bg-color">大数据</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2019/07/11/大数据相关概念/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/banner/4.jpg" class="responsive-img" alt="大数据相关概念">
+                        
+                        <span class="card-title">大数据相关概念</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            大数据基础数据采集工具SqoopSqoop,主要用于在Hadoop(Hive)与传统数据库(Mysql,Oracle等)之间进行数据传递,
+可以将传统关系型数据库中的数据导入到Hadoop的HDFS中,也可以将HDFS的数据导入到关系型数据
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2019-07-11
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/大数据/" class="post-category">
+                                    大数据
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/大数据/">
+                        <span class="chip bg-color">大数据</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2019</span>
+            <a href="/about" target="_blank">Selegant</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/Selegant" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1228579928@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1228579928" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1228579928" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/search.xml", 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
