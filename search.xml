@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>责任链模式</title>
+      <link href="/2020/06/05/%E8%B4%A3%E4%BB%BB%E9%93%BE%E6%A8%A1%E5%BC%8F/"/>
+      <url>/2020/06/05/%E8%B4%A3%E4%BB%BB%E9%93%BE%E6%A8%A1%E5%BC%8F/</url>
+      
+        <content type="html"><![CDATA[<h1 id="责任链定义"><a href="#责任链定义" class="headerlink" title="责任链定义"></a>责任链定义</h1><p>责任链模式是一种设计模式。在责任链模式里，很多对象由每一个对象对其下家的引用而连接起来形成一条链。请求在这个链上传递，直到链上的某一个对象决定处理此请求。发出这个请求的客户端并不知道链上的哪一个对象最终处理这个请求，这使得系统可以在不影响客户端的情况下动态地重新组织和分配责任。</p><h1 id="责任链使用场景"><a href="#责任链使用场景" class="headerlink" title="责任链使用场景"></a>责任链使用场景</h1><p>责任链有很多的使用场景 但是最适合用的还是重构存在很多使用if-else判断逻辑的代码</p><h1 id="责任链模式分析及实现"><a href="#责任链模式分析及实现" class="headerlink" title="责任链模式分析及实现"></a>责任链模式分析及实现</h1><p>这里我使用集成支付场景进行说明<br>首先先确定需求 需要通过传入的支付方式代码确定是支付宝支付还是微信支付,所以我们先抽象出一个支付类</p><h2 id="抽象一个支付对象-也可以是接口"><a href="#抽象一个支付对象-也可以是接口" class="headerlink" title="抽象一个支付对象(也可以是接口)"></a>抽象一个支付对象(也可以是接口)</h2><pre><code>@Datapublic abstract class AbstractPay {    /**     * 支付宝支付     */    public static int ALI_PAY = 1;    /**     * 微信支付     */    public static int WX_PAY = 2;    /**     * 条码支付     *     * @param payRequest     * @param abstractPay     */    abstract protected void barCode(PayRequest payRequest, AbstractPay abstractPay);}</code></pre><h2 id="实现责任链管理类"><a href="#实现责任链管理类" class="headerlink" title="实现责任链管理类"></a>实现责任链管理类</h2><pre><code>@Slf4jpublic class PayChain extends AbstractPay {    /**     * 完整责任链列表     */    private List&lt;AbstractPay&gt; list = new ArrayList&lt;&gt;();    /**     * 索引     */    private int index = 0;    /**     * 添加责任对象     *     * @param abstractPay     * @return     */    public PayChain add(AbstractPay abstractPay) {        list.add(abstractPay);        return this;    }    @Override    public void barCode(PayRequest payRequest, AbstractPay abstractPay) {        // 所有遍历完了，直接返回        if (index == list.size()) {            log.error(&quot;不存在的支付方式&quot;);            return;        }        // 获取当前责任对象        AbstractPay current = list.get(index);        // 修改索引值，以便下次回调获取下个节点，达到遍历效果        index++;        // 调用当前责任对象处理方法        current.barCode(payRequest, this);    }}</code></pre><h2 id="实现支付宝支付"><a href="#实现支付宝支付" class="headerlink" title="实现支付宝支付"></a>实现支付宝支付</h2><pre><code>public class AliPay extends AbstractPay {    @Override    public void barCode(PayRequest payRequest, AbstractPay abstractPay) {        if (payRequest.getPayCode() == ALI_PAY) {            System.out.println(&quot;支付宝扫码支付&quot;);        } else {            abstractPay.barCode(payRequest, abstractPay);        }    }}</code></pre><h2 id="实现微信支付"><a href="#实现微信支付" class="headerlink" title="实现微信支付"></a>实现微信支付</h2><pre><code>public class WxPay extends AbstractPay {    @Override    public void barCode(PayRequest payRequest, AbstractPay abstractPay) {        if (payRequest.getPayCode() == WX_PAY) {            System.out.println(&quot;微信扫码支付&quot;);        } else {            abstractPay.barCode(payRequest, abstractPay);        }    }}</code></pre><h2 id="测试责任链"><a href="#测试责任链" class="headerlink" title="测试责任链"></a>测试责任链</h2><pre><code>@SpringBootTestclass EasysdkApplicationTests {    @Test    void barCode() {        PayRequest payRequest = new PayRequest();        payRequest.setPayCode(2);        PayChain chain = new PayChain();        chain.add(new AliPay()).add(new WxPay());        chain.barCode(payRequest, chain);    }}</code></pre><p>此篇文章参考<a href="https://www.cnblogs.com/nesger/p/9138536.html" target="_blank" rel="external">责任链模式妙用</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 设计模式 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 设计模式 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>单机安装Hbase+Hadoop+Zookeeper</title>
       <link href="/2020/01/14/%E5%8D%95%E6%9C%BA%E5%AE%89%E8%A3%85Hbase-Hadoop-Zookeeper/"/>
       <url>/2020/01/14/%E5%8D%95%E6%9C%BA%E5%AE%89%E8%A3%85Hbase-Hadoop-Zookeeper/</url>
